@@ -26,7 +26,11 @@ public class Goal_rename_year_parent extends HttpServlet {
         System.out.println(goal_year_id);
         System.out.println("goal_rename");
         System.out.println(goal_rename);
-        if(goal_rename(goal_year_parent_id,goal_rename)){
+
+        if(goal_year_parent_id == null){
+            String url = "/UNION/goal/goal_update_id_check_error.jsp";
+		    response.sendRedirect(url);
+        }else if(goal_rename(goal_year_parent_id,goal_rename)){
             Goal_edit_year edit_year  = new Goal_edit_year();
             edit_year.select(goal_year_id,request,response);
         }else{

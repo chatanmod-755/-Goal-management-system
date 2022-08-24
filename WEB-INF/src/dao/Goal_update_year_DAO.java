@@ -269,9 +269,8 @@ public class Goal_update_year_DAO extends DAO{
         System.out.println("rs_update");
         System.out.println(rs_update);
         if (rs_update == 0){//sql文が失敗した時(今日の日付が最後の日付を超えている場合)
-            System.out.println("きたー");
-            con.rollback();
-            //con.setAutoCommit(true);
+            con.setAutoCommit(false);
+            con.commit();
             con.close();//コネクションを閉じる
             return false;
         }

@@ -27,7 +27,10 @@ public class Goal_rename_month_parent extends HttpServlet {
         System.out.println(goal_month_id);
         System.out.println("goal_rename");
         System.out.println(goal_rename);
-        if(goal_rename(goal_month_parent_id,goal_rename)){
+        if(goal_month_parent_id == null){
+            String url = "/UNION/goal/goal_update_id_check_error.jsp";
+		    response.sendRedirect(url);
+        }else if(goal_rename(goal_month_parent_id,goal_rename)){
             edit_month.select(goal_month_id,request,response);
         }else{
             String url = "/UNION/goal/update-name-error.jsp";

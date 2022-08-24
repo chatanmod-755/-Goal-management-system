@@ -41,7 +41,7 @@ public class Goal_update_week extends HttpServlet {
 
         if(goal_week_id == null){
             System.out.println("目標idがない");
-            String url = "/UNION/goal/goal_update_week_id_error.jsp";
+            String url = "/UNION/goal/goal_update_id_check_error.jsp";
             response.sendRedirect(url);
         }else if(goal_rename.isEmpty() && goal_condition.isEmpty()){
             System.out.println("目標情報がない");

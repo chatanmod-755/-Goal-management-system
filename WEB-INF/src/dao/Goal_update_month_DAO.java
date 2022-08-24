@@ -293,9 +293,8 @@ public  Boolean goal_month_child_rename(String goal_month_child_id,String goal_r
         System.out.println("rs_update");
         System.out.println(rs_update);
         if (rs_update == 0){//sql文が失敗(今日の日付が最後の日付を超えている場合)
-            System.out.println("きたー");
-            con.rollback();
-            //con.setAutoCommit(true);
+            con.setAutoCommit(false);
+            con.commit();
             con.close();//コネクションを閉じる
             return false;
         }

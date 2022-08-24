@@ -26,21 +26,26 @@ public class Goal_delete_month_parent extends HttpServlet {
         Goal_select_month_DAO dao = new Goal_select_month_DAO();
         Goal_edit_month edit_month  = new Goal_edit_month();
 
-        if(dao.check_child(goal_month_parent_id)){//子目標にデータがあるか判定
-            System.out.println("子目標にデータあるので削除しにいきます");
-            if(del_month.childs_del(goal_month_parent_id) && del_month.parent_del(goal_month_parent_id)){
-                edit_month.select(goal_month_id,request,response);
-            }else{
-                String url = "/UNION/goal/delete-goal-error.jsp";
-		        response.sendRedirect(url);//目標削除失敗ページへリダイレクト。
-            }
-        }else{//親目標を削除
-            System.out.println("子目標にデータがないので親目標だけ削除します");
-            if(del_month.parent_del(goal_month_parent_id)){
-                edit_month.select(goal_month_id,request,response);
-            }else{
-                String url = "/UNION/goal/delete-goal-error.jsp";
-		        response.sendRedirect(url);//目標削除失敗ページへリダイレクト。
+        if(goal_month_parent_id == null){
+            String url = "/UNION/goal/Goal_check_error.jsp";
+		    response.sendRedirect(url);
+        }else{
+            if(dao.check_child(goal_month_parent_id)){//子目標にデータがあるか判定
+                System.out.println("子目標にデータあるので削除しにいきます");
+                if(del_month.childs_del(goal_month_parent_id) && del_month.parent_del(goal_month_parent_id)){
+                    edit_month.select(goal_month_id,request,response);
+                }else{
+                    String url = "/UNION/goal/delete-goal-error.jsp";
+		            response.sendRedirect(url);//目標削除失敗ページへリダイレクト。
+                }
+            }else{//親目標を削除
+                System.out.println("子目標にデータがないので親目標だけ削除します");
+                if(del_month.parent_del(goal_month_parent_id)){
+                    edit_month.select(goal_month_id,request,response);
+                }else{
+                    String url = "/UNION/goal/delete-goal-error.jsp";
+		            response.sendRedirect(url);//目標削除失敗ページへリダイレクト。
+                }
             }
         }
     }

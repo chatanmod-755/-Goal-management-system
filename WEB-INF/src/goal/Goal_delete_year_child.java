@@ -23,11 +23,16 @@ public class Goal_delete_year_child extends HttpServlet {
         Delete_year_DAO del_year  = new Delete_year_DAO();
         Goal_edit_year edit_year = new Goal_edit_year();
 
-        if(del_year.child_del(goal_year_child_id,goal_year_parent_id)){//子目標を削除
-            edit_year.select_child(goal_year_parent_id,request,response);//子目標を表示
+        if(goal_year_child_id == null){
+            String url = "/UNION/goal/Goal_check_error.jsp";
+		    response.sendRedirect(url);
         }else{
-            String url = "/UNION/goal/delete-goal-error.jsp";
-		    response.sendRedirect(url);//目標削除失敗ページへリダイレクト。
+            if(del_year.child_del(goal_year_child_id,goal_year_parent_id)){//子目標を削除
+                edit_year.select_child(goal_year_parent_id,request,response);//子目標を表示
+            }else{
+                String url = "/UNION/goal/delete-goal-error.jsp";
+		        response.sendRedirect(url);//目標削除失敗ページへリダイレクト。
+            }
         }
     }
 }

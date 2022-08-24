@@ -5,17 +5,23 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.naming.NamingException;
 import org.mindrot.jbcrypt.BCrypt;
+import javax.sql.DataSource;
+import javax.naming.InitialContext;
 
 public class UserDAO extends DAO{
     
     public User search(String user_id, String user_password){ //ユーザーとパスワード入力をDBと照合
         User user = null;
         User user_name2;
-        Connection con = getConnection(); //DBに接続
 
-        PreparedStatement st;
+        
         try{
+            PreparedStatement st;
+            InitialContext ic=new InitialContext();
+            DataSource ds=(DataSource)ic.lookup("java:/comp/env/jdbc/unionn");
+            Connection con = ds.getConnection(); //DBに接続
             st=con.prepareStatement("select * from user where user_id=?"); //userDBにユーザーidが合致しているか検索
             st.setString(1,user_id); //入力されたユーザー名
             System.out.println("クエリ文発射。");
@@ -33,7 +39,7 @@ public class UserDAO extends DAO{
             }
             st.close();
             con.close();//コネクションを閉じる
-        }catch (SQLException e){
+        }catch (SQLException |  NamingException e){
             System.out.println("クエリ文が失敗しました。");
             e.printStackTrace();
         };

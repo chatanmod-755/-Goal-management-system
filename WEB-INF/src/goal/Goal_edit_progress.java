@@ -55,14 +55,14 @@ public class Goal_edit_progress extends HttpServlet {
             Goal g = Goal_achievement_rate.get(0);
             String achievement_rate = g.get_achievement_rate();
             Boolean achievement_rate_update = update_dao.achievement_rate_update(goal_id,day,achievement_rate);//週間進捗表の進捗率をアップデート
-                List<Goal> goal_progress_date_jsp = date.select_goal_progress_date(goal_id);
-                System.out.println("進捗情報取得");
-                session.setAttribute("goal_progress_date",goal_progress_date_jsp);//進捗表の日付と進捗率を設定。
-                System.out.println(goal_progress_date_jsp);
-                System.out.println("進捗情報表示終了");
-                //displayProduct(Goal_achievement_rate,request,response);
-                String url = "/UNION/goal/goal_progress_week.jsp";
-                response.sendRedirect(url);
+            List<Goal> goal_progress_date_jsp = date.select_goal_progress_date(goal_id);
+            System.out.println("進捗情報取得");
+            session.setAttribute("goal_progress_date",goal_progress_date_jsp);//進捗表の日付と進捗率を設定。
+            System.out.println(goal_progress_date_jsp);
+            System.out.println("進捗情報表示終了");
+            //displayProduct(Goal_achievement_rate,request,response);
+            String url = "/UNION/goal/goal_progress_week.jsp";
+            response.sendRedirect(url);
         }catch(Exception e){
             System.out.println("listの情報を取得できませんでした。");
             e.printStackTrace();
