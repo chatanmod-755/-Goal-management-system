@@ -30,9 +30,6 @@
 </form>
 </div>
 
-<!--head>
-
-</head!-->
 <meta charset="UTF-8">
 <link rel="stylesheet" href="button.css">
 
@@ -64,8 +61,8 @@
 <form method="post" action="?">
     <c:forEach var="Goal" items="${Goal_not_achievement_parent_list}">
     <tr>
-        <td>目標id${Goal.getgoal_month_parent_id()}</td>
-        <td>目標${Goal.getgoal()}</td>
+        <!--td>目標id${Goal.getgoal_month_parent_id()}</td-->
+        <td>${Goal.getgoal()}  </td>
     </tr>
     </c:forEach>
 </form>
@@ -75,8 +72,8 @@
     <c:forEach var="Goal" items="${Goal_not_achievement_child_list}">
     <tr>
         <input id="marry-f" type="radio" name="goal_month_child_id" value=${Goal.getgoal_month_child_id()}>
-        <td>目標id${Goal.getgoal_month_child_id()}</td>
-        <td>目標${Goal.getgoal()}</td>
+        <!--td>目標id${Goal.getgoal_month_child_id()}</td-->
+        <td>${Goal.getgoal()}  </td>
     </tr>
     </c:forEach>
     <p><input type="submit" class="btn btn--radius btn--orange" style="position: absolute; left: 0px; top: 630px" name="action" value="finish" formaction="/UNION/goal/Goal_finish_month"></p>
@@ -86,7 +83,7 @@ Date datee = new Date();
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 String toda = dateFormat.format(datee);
 Date today = dateFormat.parse(toda);
-List<Goal> end_date = (List<Goal>)session.getAttribute("week_date");
+List<Goal> end_date = (List<Goal>)session.getAttribute("month_date");
 
 Goal g = end_date.get(end_date.size()-1);
 Date end_day = dateFormat.parse(g.getgoal_end_date());
@@ -102,6 +99,7 @@ if(today.compareTo(end_day) > 0){
     </head><body>
     <br/><br/>
     <%
+    //セッション有無確認
     User user = (User)session.getAttribute("user");
     if (user == null){
         String url = "/UNION/goal/session-error.jsp";
@@ -113,10 +111,10 @@ if(today.compareTo(end_day) > 0){
         out.println(date.getgoal_progress_date());
     }
     String [][] input = {
-            {"1","","3月"},
-            {"1","","4月"},
-            {"1","","6月"},
-            {"1","","7月"},
+            {"1","",""},
+            {"1","",""},
+            {"1","",""},
+            {"1","",""},
     };
     ArrayList<ArrayList<String>> ar1 = new ArrayList<ArrayList<String>>();
     ArrayList<String> tmp = new ArrayList<String>();
@@ -130,7 +128,6 @@ if(today.compareTo(end_day) > 0){
     session.setAttribute("chart1", ar1);
     }
     %>
-    <!--img src="/UNION/goal/Goal_progress_chart2?mode=2" /-->
     <img src="/UNION/goal/Goal_progress_chart2" />
     </body>
 </html>

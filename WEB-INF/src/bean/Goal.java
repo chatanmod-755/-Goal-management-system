@@ -1,6 +1,6 @@
 package bean;
 
-public class Goal implements java.io.Serializable{ //
+public class Goal implements java.io.Serializable{
 
     private String goal_id;//目標id
     private String goal_week_id;//週間目標id
@@ -19,51 +19,51 @@ public class Goal implements java.io.Serializable{ //
     private String goal_progress_date;//目標進捗の日付
     private String day_of_week;//週間目標の曜日
 
-    public void setgoal_id(String goal_id){ //目標idを代入
+    public void setgoal_id(String goal_id){ //目標id保持
         this.goal_id = goal_id;
     }
 
-    public void setgoal_week_id(String goal_week_id){ //週間目標idを代入
+    public void setgoal_week_id(String goal_week_id){ //週間目標id保持
         this.goal_week_id = goal_week_id;
     }
 
-    public void setgoal_type(String goal_type){ //目標の種類を代入
+    public void setgoal_type(String goal_type){ //目標の種類保持
         this.goal_type = goal_type;
     }
 
-    public void setgoal_start_date(String goal_start_date){ //最初の日付を代入
+    public void setgoal_start_date(String goal_start_date){ //最初の日付保持
         this.goal_start_date = goal_start_date;
     }
 
-    public void setgoal_end_date(String goal_end_date){ //最後の日付を代入
+    public void setgoal_end_date(String goal_end_date){ //最後の日付保持
         this.goal_end_date = goal_end_date;
     }
 
-    public void setgoal_month_parent_id(String parent_id){ //月間親idを代入
+    public void setgoal_month_parent_id(String parent_id){ //月間親id保持
         this.goal_month_parent_id = parent_id;
     }
 
-    public void setgoal_month_child_id(String child_id){ //月間子idを代入
+    public void setgoal_month_child_id(String child_id){ //月間子id保持
         this.goal_month_child_id = child_id;
     }
 
-    public void setgoal_year_parent_id(String parent_id){ //年間親idを代入
+    public void setgoal_year_parent_id(String parent_id){ //年間親id保持
         this.goal_year_parent_id = parent_id;
     }
 
-    public void setgoal_year_child_id(String child_id){ //年間子idを代入
+    public void setgoal_year_child_id(String child_id){ //年間子id保持
         this.goal_year_child_id = child_id;
     }
 
-    public void setgoal(String goal){ //目標を代入
+    public void setgoal(String goal){ //目標保持
         this.goal = goal;
     }
 
-    public void setgoal_condition(String goal_condition){ //目標達成条件回数を代入
+    public void setgoal_condition(String goal_condition){ //目標達成条件回数保持
         this.goal_condition = goal_condition;
     }
 
-    public void setgoal_count(String goal_count){ //目標達成回数を代入
+    public void setgoal_count(String goal_count){ //目標達成回数保持
         this.goal_count = goal_count;
     }
 
@@ -71,15 +71,15 @@ public class Goal implements java.io.Serializable{ //
         this.achieved_goal = achieved_goal;
     }
 
-    public void setachievement_rate(String achievement_rate){//目標達成率を代入
+    public void setachievement_rate(String achievement_rate){//目標達成率保持
         this.achievement_rate = achievement_rate;
     }
 
-    public void setgoal_progress_date(String goal_progress_date){//目標進捗の日付を代入
+    public void setgoal_progress_date(String goal_progress_date){//目標進捗の日付保持
         this.goal_progress_date = goal_progress_date;
     }
 
-    public void setday_of_week(String day_of_week){//週間目標進捗の曜日を代入
+    public void setday_of_week(String day_of_week){//週間目標進捗の曜日保持
         this.day_of_week = day_of_week;
     }
 

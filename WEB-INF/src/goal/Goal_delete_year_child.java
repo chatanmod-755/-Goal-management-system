@@ -14,16 +14,16 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
 @WebServlet(urlPatterns={"/goal/Goal_delete_year_child"})
-public class Goal_delete_year_child extends HttpServlet {
+public class Goal_delete_year_child extends HttpServlet {//子目標削除
     public void doPost(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException{
         HttpSession session = request.getSession();//セッション情報を取得。
-        String goal_year_child_id = request.getParameter("goal_year_child_id");//パラメーターから取得
-        String goal_year_parent_id = (String)session.getAttribute("goal_year_parent_id");//セッション情報から取得
+        String goal_year_child_id = request.getParameter("goal_year_child_id");//子目標id取得
+        String goal_year_parent_id = (String)session.getAttribute("goal_year_parent_id");//親目標id取得
         Delete_year_DAO del_year  = new Delete_year_DAO();
         Goal_edit_year edit_year = new Goal_edit_year();
 
-        if(goal_year_child_id == null){
+        if(goal_year_child_id == null){//目標が選択されているか判定
             String url = "/UNION/goal/Goal_check_error.jsp";
 		    response.sendRedirect(url);
         }else{

@@ -5,6 +5,7 @@
 <%@page import = "bean.User"%>
 
 <%
+//セッション有無確認
 User user = (User)session.getAttribute("user");
 if (user == null){
     String url = "/UNION/goal/session-error.jsp";
@@ -28,9 +29,6 @@ if (user == null){
 </form>
 </div>
 
-<!--head>
-
-</head!-->
 <meta charset="UTF-8">
 <link rel="stylesheet" href="button.css">
 
@@ -42,7 +40,7 @@ if (user == null){
     <c:forEach var="Goal" items="${list}">
     <tr>
         <input id="marry-f" type="radio" name="goal_id" value=${Goal.getgoal_id()}>
-        <td>目標id${Goal.getgoal_id()}</td>
+        <!--td>目標id${Goal.getgoal_id()}</td-->
         <!--td>目標タイプ${Goal.getgoal_type()}</td-->
         <c:if test = "${Goal.getgoal_type() == '1'}">
             週間目標
@@ -53,7 +51,7 @@ if (user == null){
         <c:if test = "${Goal.getgoal_type() == '3'}">
             年間目標
         </c:if>
-        <td>目標情報${Goal.getgoal_start_date()} ~~ ${Goal.getgoal_end_date()}</td>
+        <td><font color="red">期間 : </font>${Goal.getgoal_start_date()} ~~ ${Goal.getgoal_end_date()}</td>
     </tr>
     </c:forEach>
     <p><input type="submit" class="btn btn--radius btn--orange" style="position: absolute; left: 0px; top: 680px" name="action" value="edit" formaction="/UNION/goal/Goal_edit_contlloer"></p>

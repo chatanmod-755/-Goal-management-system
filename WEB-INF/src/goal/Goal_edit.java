@@ -12,30 +12,27 @@ import java.util.List;
 import javax.servlet.annotation.WebServlet;
 
 @WebServlet(urlPatterns={"/goal/Goal_edit"})
-public class Goal_edit extends HttpServlet {
+public class Goal_edit extends HttpServlet {//目標情報取得
     public void doPost(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException{
-        HttpSession session = request.getSession();//セッション情報を取得。
-
-        String user_id = (String)session.getAttribute("user_id");//セッション情報からuser_idを取得
-
-        Goal_listDAO dao = new Goal_listDAO();//Goal_listDAOのインスタンスを生成
+        HttpSession session = request.getSession();//セッション情報を取得
+        String user_id = (String)session.getAttribute("user_id");//ユーザーid取得
+        Goal_listDAO dao = new Goal_listDAO();
 
         try{
-            List<Goal> list = dao.search(user_id);//Goal_listDAOのsearchメソッドへuser_idを渡す
-            session.setAttribute("list",list); //sessionへlistの情報をセット
-            System.out.println("list表示");
-            System.out.println(list.goal_type);
-            System.out.println(list.goal_start_date);
-            System.out.println(list.goal_end_date);
+            List<Goal> list = dao.search(user_id);
+            session.setAttribute("list",list); //目標情報を代入
         }catch(Exception e){
-            System.out.println("listの情報を取得できませんでした。");
+            String url = "/UNION/goal/goal_select_error.jsp";
+            response.sendRedirect(url);//目標取得失敗ページへリダイレクト
+            e.printStackTrace();
         }
-        String url = "/UNION/goal/goal_edit.jsp";
+
         try{
+            String url = "/UNION/goal/goal_edit.jsp";
 		    response.sendRedirect(url);//check_edit.jspへリダイレクト。
         }catch(IOException e){
-            System.out.println("check_edit.jspへリダイレクトに失敗しました。");
+            e.printStackTrace();
         }
     }
 }

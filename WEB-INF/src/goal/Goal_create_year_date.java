@@ -11,7 +11,6 @@ import java.util.Date;
 public class Goal_create_year_date{
     public List<Goal> create_goal_date(long diff_date,String start_date) throws Exception{ //目標日付生成。
         List<Goal> list=new ArrayList<>();//ArrayList作成
-        //try{
             String year = start_date.substring(3, 4);//年の一桁取得
             String year_ten = start_date.substring(2, 3);//年の十桁取得
             String month = start_date.substring(5, 7);//月の値取得
@@ -22,91 +21,64 @@ public class Goal_create_year_date{
             Integer int_year_ten = Integer.parseInt(year_ten);
             int Base_day = int_day;//基準日
             String Base_month = year;//基準月
-            //start_date = start_date.replace('-', '/');
 
             for(int i = 0; i <= diff_date; i++){//差分日数を回す
-              Goal g=new Goal();
-              System.out.println("日数表示");
-              System.out.println(int_day);
-              System.out.println(i);
-              System.out.println(diff_date);
-                //DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-                //df.setLenient(false); 
+                Goal g=new Goal();
                 if(int_day <= 9){//日付が9以下月が変わることはない
-                    System.out.println("日付が9以下");
                     String newday = start_date.substring(0, 9) + int_day+ start_date.substring(9 + 1);                    
                     start_date = newday.replace('-', '/');
-                    System.out.println(start_date);
                     DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
                     Date dt1=df.parse(start_date);
                     DateFormat format2=new SimpleDateFormat("EEEE");
                     String day_of_week=format2.format(dt1);
-                    System.out.println("曜日生成");
-                    System.out.println(day_of_week);
                     g.setday_of_week(day_of_week);//曜日設定
                     g.setgoal_progress_date(start_date);//目標を設定
                 }else if(int_day <= 27){//日付が27以下月が変わることはない
-                    System.out.println("日付が27以下");
                     String newday = start_date.substring(0, 8) + int_day+ start_date.substring(9 + 1);
                     start_date =  newday.replace('-', '/');
-                    System.out.println(start_date);
                     DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
                     Date dt1=df.parse(start_date);
                     DateFormat format2=new SimpleDateFormat("EEEE");
                     String day_of_week=format2.format(dt1);
-                    System.out.println("曜日生成");
-                    System.out.println(day_of_week);
                     g.setday_of_week(day_of_week);//曜日設定
                     g.setgoal_progress_date(start_date);//目標を設定
                 }
 
                 if(int_day >= 28 && int_month <= 8 && int_year <= 9){//月が一桁、年は変わらない
-                    System.out.println("日付が28以上,8月以前");
                     try {
                         String str2 = start_date.substring(0, 8) + int_day.toString()+ start_date.substring(9 + 1);//日付に1加算
                         DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
                         df.setLenient(false); // ←これで厳密にチェックしてくれるようになる
                         start_date = str2.replace('-', '/');
                         df.format(df.parse(start_date)); // ←df.ｘparseでParseExceptionがThrowされる
-                        System.out.println(start_date);
                         Date dt1=df.parse(start_date);
                         DateFormat format2=new SimpleDateFormat("EEEE");
                         String day_of_week=format2.format(dt1);
-                        System.out.println("曜日生成");
-                        System.out.println(day_of_week);
                         g.setday_of_week(day_of_week);//曜日設定
                         g.setgoal_progress_date(start_date);//日付設定
                     }catch (Exception p) {
                         int_day = 1;//月が変わったので日付を初期化。
                         int_month +=1;
                         start_date = start_date.substring(0, 4) + "/0"+int_month+ "/01";//月を変更
-                        System.out.println("存在しない日付、変換成功");
-                        System.out.println(start_date);
                         DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
                         Date dt1=df.parse(start_date);
                         DateFormat format2=new SimpleDateFormat("EEEE");
                         String day_of_week=format2.format(dt1);
-                        System.out.println("曜日生成");
-                        System.out.println(day_of_week);
                         g.setday_of_week(day_of_week);//曜日設定
                         g.setgoal_progress_date(start_date);//目標を設定
                     }
                 }
 
-                if(int_day >= 28 && int_month >= 9 && int_month <= 11 && int_year <= 9){//月が9月以上11月以前、年は変わらない
-                    System.out.println("日付が28以上,9月以降");
+                if(int_day >= 28 && int_month >= 9 && int_month <= 11 && int_year <= 9){//9月以上11月以前、年は変わらない
                     try {
                         String str2 = start_date.substring(0, 8) + int_day.toString()+ start_date.substring(9 + 1);//日付に1加算
                         DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
                         df.setLenient(false); // ←これで厳密にチェックしてくれるようになる
                         start_date = str2.replace('-', '/');
-                        System.out.println(start_date);
                         df.format(df.parse(start_date)); // ←df.ｘparseでParseExceptionがThrowされる
                         Date dt1=df.parse(start_date);
                         DateFormat format2=new SimpleDateFormat("EEEE");
                         String day_of_week=format2.format(dt1);
-                        System.out.println("曜日生成");
-                        System.out.println(day_of_week);
                         g.setday_of_week(day_of_week);//曜日設定
                         g.setgoal_progress_date(start_date);
                     }catch (Exception p) {
@@ -114,33 +86,25 @@ public class Goal_create_year_date{
                         int_month += 1;
                         //start_date = start_date.substring(0, 4) + "-"+int_month+ "-01";//月を変更
                         start_date = start_date.substring(0, 4) + "/"+int_month+ "/01";//月を変更
-                        System.out.println("存在しない日付、変換成功");
-                        System.out.println(start_date);
                         DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
                         Date dt1=df.parse(start_date);
                         DateFormat format2=new SimpleDateFormat("EEEE");
                         String day_of_week=format2.format(dt1);
-                        System.out.println("曜日生成");
-                        System.out.println(day_of_week);
                         g.setday_of_week(day_of_week);//曜日設定
                         g.setgoal_progress_date(start_date);//目標を設定
                     }
                 }
 
                 if(int_day >= 28 && int_month == 12 && int_year <= 8){//年を変更する日付生成
-                    System.out.println("12月かつ、1の位の年数が変わる。");
                     try {
                         String str2 = start_date.substring(0, 8) + int_day.toString()+ start_date.substring(9 + 1);//日付に1加算
                         DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
                         df.setLenient(false); // ←これで厳密にチェックしてくれるようになる
                         start_date = str2.replace('-', '/');
-                        System.out.println(start_date);
                         df.format(df.parse(start_date)); // ←df.ｘparseでParseExceptionがThrowされる
                         Date dt1=df.parse(start_date);
                         DateFormat format2=new SimpleDateFormat("EEEE");
                         String day_of_week=format2.format(dt1);
-                        System.out.println("曜日生成");
-                        System.out.println(day_of_week);
                         g.setday_of_week(day_of_week);//曜日設定
                         g.setgoal_progress_date(start_date);
                     } catch (Exception p) {
@@ -148,33 +112,25 @@ public class Goal_create_year_date{
                         int_month = 1; //月を初期化
                         int_year += 1;//年をカウントアップ
                         start_date = start_date.substring(0, 3) + int_year +"/01/01";//年を変更
-                        System.out.println("存在しない日付、変換成功");
-                        System.out.println(start_date);
                         DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
                         DateFormat format2=new SimpleDateFormat("EEEE");
                         Date dt1=df.parse(start_date);
                         String day_of_week=format2.format(dt1);
-                        System.out.println("曜日生成");
-                        System.out.println(day_of_week);
                         g.setday_of_week(day_of_week);//曜日設定
                         g.setgoal_progress_date(start_date);
                     }
                 }
 
                 if(int_day >= 28 && int_month == 12 && int_year == 9){//十桁の値が変更になる日付生成
-                    System.out.println("12月かつ、10の位の年数が変わる。");
                     try {
                         String str2 = start_date.substring(0, 8) + int_day.toString()+ start_date.substring(9 + 1);//日付に1加算
                         DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
                         df.setLenient(false); // ←これで厳密にチェックしてくれるようになる
                         start_date = str2.replace('-', '/');
-                        System.out.println(start_date);
                         df.format(df.parse(start_date)); // ←df.ｘparseでParseExceptionがThrowされる
                         Date dt1=df.parse(start_date);
                         DateFormat format2=new SimpleDateFormat("EEEE");
                         String day_of_week=format2.format(dt1);
-                        System.out.println("曜日生成");
-                        System.out.println(day_of_week);
                         g.setday_of_week(day_of_week);//曜日設定
                         g.setgoal_progress_date(start_date);
                     } catch (Exception p) {
@@ -183,81 +139,56 @@ public class Goal_create_year_date{
                         int_year  = 0;//一桁の年を0に初期化
                         int_year_ten += 1;//十桁の年をカウントアップ
                         start_date = start_date.substring(0, 2) + int_year_ten + int_year +"/01/01";//年を変更
-                        System.out.println("存在しない日付、変換成功");
-                        System.out.println(start_date);
                         DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
                         Date dt1=df.parse(start_date);
                         DateFormat format2=new SimpleDateFormat("EEEE");
                         String day_of_week=format2.format(dt1);
-                        System.out.println("曜日生成");
-                        System.out.println(day_of_week);
                         g.setday_of_week(day_of_week);//曜日設定
                         g.setgoal_progress_date(start_date);
                     }
                 }
 
-                //g.setgoal_month_parent_id(rs.getString("parent_id"));//親間目標idを設定
                 if(i == 0 || int_day == Base_day){//1ヶ月ごとにlistに追加。
-                    System.out.println("1ヶ月経過------");
-                    System.out.println("int_day");
-                    System.out.println(int_day);
-                    System.out.println("Base_day");
-                    System.out.println(Base_day);
                     Base_month +=1;
-
-                    list.add(g);//リストに値を追加
+                    list.add(g);
                 }
 
                 if(Base_day == 31 && int_day == 30){//はじめの日付が31の場合
                     try{
-                        System.out.println("int_day+1する");
                         int_day += 1;
-                        System.out.println(int_day);
                         String str2 = start_date.substring(0, 8) + int_day.toString()+ start_date.substring(9 + 1);//日付に1加算
                         DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
                         df.setLenient(false); // ←これで厳密にチェックしてくれるようになる
                         start_date = str2.replace('-', '/');
                         df.format(df.parse(start_date)); // ←df.ｘparseでParseExceptionがThrowされる
-                        System.out.println(start_date);
                         Date dt1=df.parse(start_date);
                         DateFormat format2=new SimpleDateFormat("EEEE");
                         String day_of_week=format2.format(dt1);
                         int_day -= 1;
-                        System.out.println("int_day-1する");
-                        System.out.println(int_day);
                     }catch (Exception p) {
-                        System.out.println("来月の31は存在しないのでlistに追加");
                         list.add(g);
                     }
                 }
 
                 if(Base_day >= 29 && int_month == 2 && int_day == 28){//はじめの日付が31の場合
                     try{
-                        System.out.println("int_day+1する");
                         int_day += 1;
-                        System.out.println(int_day);
                         String str2 = start_date.substring(0, 8) + int_day.toString()+ start_date.substring(9 + 1);//日付に1加算
                         DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
                         df.setLenient(false); // ←これで厳密にチェックしてくれるようになる
                         start_date = str2.replace('-', '/');
                         df.format(df.parse(start_date)); // ←df.ｘparseでParseExceptionがThrowされる
-                        System.out.println(start_date);
                         Date dt1=df.parse(start_date);
                         DateFormat format2=new SimpleDateFormat("EEEE");
                         String day_of_week=format2.format(dt1);
                         int_day -= 1;
-                        System.out.println("int_day-1する");
-                        System.out.println(int_day);
                     }catch (Exception p) {
-                        System.out.println("2月の29日は存在しないのでlistに追加");
                         list.add(g);
                     }
                 }
-
-
                 int_day += 1;
                 g.setachievement_rate("0");//進捗率設定
             }
-    return list;//listを返す
+    return list;
     }
 }

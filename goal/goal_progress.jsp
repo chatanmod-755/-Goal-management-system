@@ -6,6 +6,7 @@
 <%@page import = "bean.User"%>
 
 <%
+//セッション有無確認
 User user = (User)session.getAttribute("user");
 if (user == null){
     String url = "/UNION/goal/session-error.jsp";
@@ -29,9 +30,6 @@ if (user == null){
 </form>
 </div>
 
-<!--head>
-
-</head!-->
 <meta charset="UTF-8">
 <link rel="stylesheet" href="button.css">
 
@@ -42,13 +40,13 @@ if (user == null){
         <!--td>目標id${Goal.getgoal_id()}</td-->
         <!--td>目標タイプ${Goal.getgoal_type()}</td-->
         <c:if test = "${Goal.getgoal_type() == '1'}">
-            週間目標
+            <!--font size="2"-->週間目標<!--/font-->
         </c:if>
         <c:if test = "${Goal.getgoal_type() == '2'}">
-            月間目標
+            <!--font size="2"-->月間目標<!--/font-->
         </c:if>
         <c:if test = "${Goal.getgoal_type() == '3'}">
-            年間目標
+            <!--font size="2"-->年間目標<!--/font-->
         </c:if>
         <%
         List<Goal> id_tmp = (List<Goal>)session.getAttribute("list");
@@ -58,7 +56,7 @@ if (user == null){
             out.print("週間目標");
         }
         %>
-        <td>目標期間${Goal.getgoal_start_date()} ~~ ${Goal.getgoal_end_date()}</td>
+        <td><font color="red">期間 : </font>${Goal.getgoal_start_date()} ~~ ${Goal.getgoal_end_date()} </td>
     </tr>
     </c:forEach>
     <p><input type="submit" class="btn btn--radius btn--orange" style="position: absolute; left: 0px; top: 630px" name="action" value="edit" formaction="/UNION/goal/Goal_progress_contlloer"></p>

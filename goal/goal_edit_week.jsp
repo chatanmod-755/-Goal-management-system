@@ -1,12 +1,11 @@
 <%@page contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../header.html" %>
-<!--%@page import="goal.Goal_edit_week"%-->
-<!--% ArrayList week_date = (ArrayList)session.getAttribute("week_date") %-->
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import = "bean.User"%>
 
 <%
+//セッション有無確認
 User user = (User)session.getAttribute("user");
 if (user == null){
     String url = "/UNION/goal/session-error.jsp";
@@ -35,9 +34,6 @@ if (user == null){
 </form>
 </div>
 
-<!--head>
-
-</head!-->
 <meta charset="UTF-8">
 <link rel="stylesheet" href="button.css">
 
@@ -54,7 +50,7 @@ if (user == null){
     <tr>
         <input id="marry-f" type="radio" name="goal_week_id" value=${Goal.getgoal_week_id()}>
         <!--td>目標id${Goal.getgoal_week_id()}</td-->
-        <td>目標 ${Goal.getgoal()}</td>
+        <td>目標名 : ${Goal.getgoal()}</td>
         <td>目標達成条件回数  ${Goal.getgoal_condition()}</td>
     </tr>
     </c:forEach>
@@ -73,8 +69,8 @@ if (user == null){
     </p>
     <p>目標名変更<input type="text" name="goal_rename"></p>
     <p><input type="submit" class="btn btn--radius btn--orange" style="position: absolute; left: 0px; top: 630px" name="goal_add" value="goal_add" formaction="/UNION/goal/Goal_add_week"></p>
-    <p><input type="submit" class="btn btn--radius btn--orange" style="position: absolute; left: 0px; top: 680px" name="goal_delete" value="goal_delete" formaction="/UNION/goal/Goal_delete_week"></p>
-    <p><input type="submit" class="btn btn--radius btn--orange" style="position: absolute; left: 0px; top: 730px" value="goal_update" formaction="/UNION/goal/Goal_update_week"></p>
+    <p><input type="submit" class="btn btn--radius btn--orange" style="position: absolute; left: 0px; top: 680px" value="goal_update" formaction="/UNION/goal/Goal_update_week"></p>
+    <p><input type="submit" class="btn btn--radius btn--orange" style="position: absolute; left: 0px; top: 730px" name="goal_delete" value="goal_delete" formaction="/UNION/goal/Goal_delete_week"></p>
 </form>
 
     

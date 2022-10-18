@@ -18,69 +18,58 @@ import java.util.List;
 import javax.servlet.annotation.WebServlet;
 
 @WebServlet(urlPatterns={"/goal/Goal_edit_contlloer"})
-public class Goal_edit_controller extends HttpServlet {
+public class Goal_edit_controller extends HttpServlet {//目標表示
     public void doPost(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException{
-
         Goaltype_checkDAO check= new Goaltype_checkDAO();
-
         HttpSession session = request.getSession();//セッション情報を取得。
-        String goal_id = request.getParameter("goal_id");//リクエストパラメータから目標idを取得。
-        System.out.println("Goal_edit_controllerきた。");
-        System.out.println("Goal_id表示");
-        System.out.println(goal_id);
-        System.out.println("Goal_id表示終了");
+        String goal_id = request.getParameter("goal_id");//目標idを取得。
 
         try{
             String goal_type  = check.check_type(goal_id);//目標の種類を取得。
-            if(goal_type.equals("1")){//週間目標編集
+            if(goal_type.equals("1")){//週間目標判定
                 try{
-                    System.out.println("週間目標編集へgoal_idを渡すよ");
-                    System.out.println("Goal_id表示");
-                    System.out.println(goal_id);
                     Goal_edit_week edit_week  = new Goal_edit_week();
-                    edit_week.select(goal_id,request,response);
+                    edit_week.select(goal_id,request,response);//週間目標取得
                 }catch(Exception e){
-                    System.out.println("週間目標編集へgoal_id渡せなかった");
+                    String url = "/UNION/goal/goal_select_error.jsp";
+                    response.sendRedirect(url);//目標取得失敗ページへリダイレクト。
                     e.printStackTrace();
                 }
-            }else if(goal_type.equals("2")){//月間目標編集
+            }else if(goal_type.equals("2")){//月間目標判定
                 try{
-                    System.out.println("月間目標編集へgoal_idを渡すよ");
                     Goal_edit_month edit_month  = new Goal_edit_month();
-                    edit_month.select(goal_id,request,response);
+                    edit_month.select(goal_id,request,response);//月間目標取得
                 }catch(Exception e){
-                    System.out.println("月間目標編集へgoal_id渡せなかった");
+                    String url = "/UNION/goal/goal_select_error.jsp";
+                    response.sendRedirect(url);//目標取得失敗ページへリダイレクト。
                     e.printStackTrace();
                 }
-            }else if(goal_type.equals("3")){//年間目標編集
+            }else if(goal_type.equals("3")){//年間目標判定
                 try{
-                    System.out.println("年間目標編集へgoal_idを渡すよ");
                     Goal_edit_year edit_year  = new Goal_edit_year();
-                    edit_year.select(goal_id,request,response);
+                    edit_year.select(goal_id,request,response);//年間目標取得
                 }catch(Exception e){
-                    System.out.println("年間目標編集へgoal_id渡せなかった");
+                    String url = "/UNION/goal/goal_select_error.jsp";
+                    response.sendRedirect(url);//目標取得失敗ページへリダイレクト。
                     e.printStackTrace();
                 }
             }
         }catch (Exception e){
+            String url = "/UNION/goal/goal_select_error.jsp";
+            response.sendRedirect(url);//目標取得失敗ページへリダイレクト。
             e.printStackTrace();
-            System.out.println("cechk_typeの取得に失敗");
         }
-
-        System.out.println("goal_id");
-        System.out.println(goal_id);
-        
-        String user_id = (String)session.getAttribute("user_id");//セッション情報からuser_idを取得
-        Goal_listDAO dao = new Goal_listDAO();//Goal_listDAOのインスタンスを生成
+        String user_id = (String)session.getAttribute("user_id");//ユーザーid取得
+        Goal_listDAO dao = new Goal_listDAO();
 
         try{
-            List<Goal> list = dao.search(user_id);//Goal_listDAOのsearchメソッドへuser_idを渡す
-            session.setAttribute("list",list); //sessionへlistの情報をセット
+            List<Goal> list = dao.search(user_id);
+            session.setAttribute("list",list); //sessionへ最新の目標情報を代入
             String url = "/UNION/goal/goal_edit.jsp";
-            response.sendRedirect(url);//目標編集ページへリダイレクト。
+            response.sendRedirect(url);//目標編集ページへリダイレクト
         }catch(Exception e){
-            System.out.println("listの情報を取得できませんでした。");
+            e.printStackTrace();
         }
     }
 }

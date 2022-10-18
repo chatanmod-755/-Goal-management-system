@@ -22,7 +22,6 @@ import org.jfree.data.xy.XYSeriesCollection;
  
 @WebServlet("/goal/JFreeChartTest")
 public class IT0090_JFreeChartDrawServlet extends HttpServlet {
- 
         JFreeChartFunctions jfc = new JFreeChartFunctions();
         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
                 String mode = request.getParameter("mode");
@@ -70,7 +69,6 @@ public class IT0090_JFreeChartDrawServlet extends HttpServlet {
                         ar3.add(ar.get(i).get(2));
                 }
                 DefaultCategoryDataset ds_cat = jfc.createDS_LineChart(ar1,ar2,ar3);
- 
                 //### ⑥チャートの作成 ###
                 //JFreeChart chart=ChartFactory.createLineChart("お菓子の売上数", "月", "売れた数", ds_cat, PlotOrientation.VERTICAL, true, false, false);
                 JFreeChart chart=ChartFactory.createLineChart("sunday", ds_cat, PlotOrientation.VERTICAL, true, false, false);

@@ -2,7 +2,9 @@
 <%@include file="../header.html" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import = "bean.User"%>
+
 <%
+//セッション有無確認
 User user = (User)session.getAttribute("user");
 if (user == null){
     String url = "/UNION/goal/session-error.jsp";
@@ -23,8 +25,5 @@ if (user == null){
     <p><input type="submit" value="目標編集"></p>
 </form>
 </form>
-<!--abel for="file">進捗率:</label>
-<progress id="file" max="100" value="70"> 70% </progress>
-<p>70%</p-->
 
 <%@include file="../footer.html" %>

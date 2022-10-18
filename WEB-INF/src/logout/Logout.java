@@ -7,20 +7,18 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 
 @WebServlet(urlPatterns={"/logout/Logout"})
-public class Logout extends HttpServlet{
+public class Logout extends HttpServlet{//ログアウト
     public void doPost(
         HttpServletRequest request,HttpServletResponse response){
-            HttpSession session=request.getSession();//セッション情報を取得
+        HttpSession session=request.getSession();//セッション情報を取得
 
-        if(session.getAttribute("user")!=null){//セッション情報からユーザー取得できれはtrue
-            System.out.println("セッション削除成功");
+        if(session.getAttribute("user")!=null){//セッション情報にユーザー情報がある事を確認
             session.removeAttribute("user");//セッション情報のユーザーを削除する。
-            //RequestDispatcher dispatch = request.getRequestDispatcher("/login/login.jsp");
             String url = "/UNION/login/login.jsp";
             try{
-		        response.sendRedirect(url);//login.jspへリダイレクト。
+		        response.sendRedirect(url);//ログインページへリダイレクト。
             }catch(IOException e){
-                System.out.println("login.jspへの遷移に失敗しました。");
+                e.printStackTrace();
             };
         }
     }

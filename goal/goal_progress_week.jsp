@@ -30,9 +30,6 @@
 </form>
 </div>
 
-<!--head>
-
-</head!-->
 <meta charset="UTF-8">
 <link rel="stylesheet" href="button.css">
 
@@ -59,7 +56,7 @@
     <tr>
         <input id="marry-f" type="radio" name="goal_week_id" value=${Goal.getgoal_week_id()}>
         <!--td>目標id${Goal.getgoal_week_id()}</td-->
-        <td>${Goal.getgoal()}</td>
+        <td>${Goal.getgoal()}  </td>
 
         <td><strong>残り目標達成回数 </strong>${Goal.getgoal_condition()}</td>
     </tr>
@@ -107,6 +104,7 @@ if(today.compareTo(end_day) > 0){
 
 
     <%
+    //セッション有無確認
     User user = (User)session.getAttribute("user");
     if (user == null){
         String url = "/UNION/goal/session-error.jsp";
@@ -137,7 +135,6 @@ if(today.compareTo(end_day) > 0){
     session.setAttribute("chart1", ar1);
     }
     %>
-    <!--img src="/UNION/goal/Goal_progress_chart2?mode=2" /-->
     <img src="/UNION/goal/Goal_progress_chart2" />
     </body>
 </html>

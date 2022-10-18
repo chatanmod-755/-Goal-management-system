@@ -5,6 +5,7 @@
 <%@page import = "bean.User"%>
 
 <%
+//セッション有無確認
 User user = (User)session.getAttribute("user");
 if (user == null){
     String url = "/UNION/goal/session-error.jsp";
@@ -33,9 +34,6 @@ if (user == null){
 </form>
 </div>
 
-<!--head>
-
-</head!-->
 <meta charset="UTF-8">
 <link rel="stylesheet" href="button.css">
 
@@ -60,12 +58,12 @@ if (user == null){
     <tr>
         <input id="marry-f" type="radio" name="goal_month_child_id" value=${Goal.getgoal_month_child_id()}>
         <!--td>子目標id${Goal.getgoal_month_child_id()}</td-->
-        <td><strong>目標 </strong>${Goal.getgoal()}</td>
+        <td><strong>目標名 : </strong>${Goal.getgoal()}</td>
     </tr>
     </c:forEach>
     <p>目標名変更<input type="text" name="goal_rename"></p>
     <p><input type="submit" class="btn btn--radius btn--orange" style="position: absolute; left: 0px; top: 630px" name="goal_add" value="goal_add" formaction="/UNION/goal/Goal_add_month_child"></p>
-    <p><input type="submit" class="btn btn--radius btn--orange" style="position: absolute; left: 0px; top: 680px" name="goal_delete" value="goal_delete" formaction="/UNION/goal/Goal_delete_month_child"></p>
-    <p><input type="submit" class="btn btn--radius btn--orange" style="position: absolute; left: 0px; top: 730px" value="goal_rename" formaction="/UNION/goal/Goal_rename_month_child"></p>
+    <p><input type="submit" class="btn btn--radius btn--orange" style="position: absolute; left: 0px; top: 680px" value="goal_rename" formaction="/UNION/goal/Goal_rename_month_child"></p>
+    <p><input type="submit" class="btn btn--radius btn--orange" style="position: absolute; left: 0px; top: 730px" name="goal_delete" value="goal_delete" formaction="/UNION/goal/Goal_delete_month_child"></p>
 </form>
 <%@include file="../footer.html" %>

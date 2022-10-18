@@ -6,40 +6,33 @@ import java.sql.SQLException;
 import java.sql.Connection;
 
 public class Goal_deleteDAO_week extends DAO{
-    public Boolean delete(String goal_id) throws Exception{ //goal_idをDBと照合
-
+    public Boolean delete(String goal_id) throws Exception{//目標idに紐づく週間進捗・週間目標表の目標情報を削除。
     Connection con = getConnection(); //DBに接続
     PreparedStatement st;
     PreparedStatement st2;
-
-
     try{
-        System.out.println("sql実施");
-        System.out.println(goal_id);
-        st=con.prepareStatement("select * from goal_week where goal_id=?"); //週間目標DBに目標idが合致しているか検索
+        st=con.prepareStatement("select * from goal_week where goal_id=?"); //週間目標表に目標idが合致しているか検索
         st.setString(1,goal_id);
         ResultSet rs_check = st.executeQuery(); //sql文実施
+
         if(rs_check.next()){//目標を作成していたら、削除。
-            System.out.println("goal_week削除しにきた");
-            st=con.prepareStatement("delete from goal_week where goal_id=?"); 
+            st=con.prepareStatement("delete from goal_week where goal_id=?");//週目標表の目標を削除
             st.setString(1,goal_id);
             int rs_weekdel = st.executeUpdate();//sql文実施
         }
-        st=con.prepareStatement("delete from achievement_rate_week where goal_id=?"); 
+        st=con.prepareStatement("delete from achievement_rate_week where goal_id=?");//週目標表の進捗率表を削除
         st.setString(1,goal_id);
         int rs_week_ratedel = st.executeUpdate();//sql文実施
-        st2=con.prepareStatement("delete from goal_create where goal_id=?"); //目標DBにユーザーidが合致しているか検索
-        st2.setString(1,goal_id); //入力されたユーザー名
+        st2=con.prepareStatement("delete from goal_create where goal_id=?"); //目標表の目標を削除
+        st2.setString(1,goal_id);
         int rs_goal_del = st2.executeUpdate(); //sql文実施
 
-        if (rs_goal_del == 0){//sql文が失敗した時
+        if ((rs_goal_del == 0) && (rs_week_ratedel == 0)){//sql文が失敗した時
             con.rollback();
             con.setAutoCommit(true);
             con.close();
-            System.out.println("目標削除失敗");
             return false;
         }else{
-            System.out.println("目標削除成功");
             con.setAutoCommit(false);
             con.commit();
             st.close();
@@ -48,7 +41,6 @@ public class Goal_deleteDAO_week extends DAO{
             return true;
         }
     }catch(SQLException e){
-        System.out.println("週間削除に失敗しました。");
         e.printStackTrace();
         return false;
     }

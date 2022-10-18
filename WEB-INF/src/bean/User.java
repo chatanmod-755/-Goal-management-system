@@ -1,6 +1,6 @@
 package bean;
 
-public class User implements java.io.Serializable{ //
+public class User implements java.io.Serializable{ 
 
     private String user_id; //ユーザーid
     private String user_name; //ユーザー名
